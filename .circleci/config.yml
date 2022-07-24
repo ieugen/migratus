@@ -14,6 +14,8 @@ jobs:
             - v1-dependency-jars-{{ checksum "project.clj" }}
             - v1-dependency-jars
       - run: docker run --rm -u root -v $PWD:/root/migratus -v /var/run/docker.sock:/var/run/docker.sock -v $PWD/.m2:/root/.m2 -v $PWD/.lein:/root/.lein -w=/root/migratus cimg/clojure:<< parameters.clojure-tag >> lein test
+      - store_test_results:
+          path: /home/circleci/migratus/target
       - save_cache:
           key: v1-dependency-jars-{{ checksum "project.clj" }}
           paths:
